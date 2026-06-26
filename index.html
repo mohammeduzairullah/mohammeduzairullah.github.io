@@ -45,25 +45,43 @@
         </nav>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="min-h-screen flex flex-col justify-center px-6 md:px-24 pt-20 border-b border-blue-950/30">
-        <p class="text-xs font-bold tracking-widest uppercase text-blue-500 mb-3">— B.TECH CSE (FINAL YEAR) — ST. MARY'S</p>
-        
-        <!-- CHANGE THIS: Your Main Headline Name -->
-        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tight text-white mb-4">
-            Mohammed Uzairullah
-        </h1>
-        <p class="text-xs md:text-sm font-semibold tracking-widest uppercase text-slate-400 mb-8 flex flex-wrap gap-2">
-            <span>ASPIRING PROJECT COORDINATOR</span> • <span>SCRUM MASTER</span> • <span>AGILE SPECIALIST</span>
-        </p>
-        
-        <!-- CHANGE THIS: Brief Bio statement -->
-        <p class="max-w-xl text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
-            Bridging the gap between technical development teams and structured project execution. Passionate about streamlining workflows, managing backlogs, and delivering successful technical solutions.
-        </p>
-        <div class="flex gap-4">
-            <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-6 py-3 rounded-lg transition shadow-lg shadow-blue-900/30">View Work</a>
-            <a href="#contact" class="border border-blue-900 hover:border-blue-500 text-slate-300 font-medium text-sm px-6 py-3 rounded-lg transition">Get In Touch</a>
+    <!-- HERO SECTION with Profile Picture on Right -->
+    <section class="min-h-screen flex items-center px-6 md:px-24 pt-20 border-b border-blue-950/30">
+        <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+            
+            <!-- LEFT SIDE: Hero Text -->
+            <div>
+                <p class="text-xs font-bold tracking-widest uppercase text-blue-500 mb-3">— B.TECH CSE (FINAL YEAR) — ST. MARY'S</p>
+                
+                <!-- CHANGE THIS: Your Main Headline Name -->
+                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tight text-white mb-4">
+                    Mohammed Uzairullah
+                </h1>
+                <p class="text-xs md:text-sm font-semibold tracking-widest uppercase text-slate-400 mb-8 flex flex-wrap gap-2">
+                    <span>ASPIRING PROJECT COORDINATOR</span> • <span>SCRUM MASTER</span> • <span>AGILE SPECIALIST</span>
+                </p>
+                
+                <!-- CHANGE THIS: Brief Bio statement -->
+                <p class="max-w-xl text-slate-400 text-base md:text-lg mb-10 leading-relaxed">
+                    Bridging the gap between technical development teams and structured project execution. Passionate about streamlining workflows, managing backlogs, and delivering successful technical solutions.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-6 py-3 rounded-lg transition shadow-lg shadow-blue-900/30">View Work</a>
+                    <a href="#contact" class="border border-blue-900 hover:border-blue-500 text-slate-300 font-medium text-sm px-6 py-3 rounded-lg transition">Get In Touch</a>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: Profile Picture Holder -->
+            <div class="flex justify-center md:justify-end">
+                <div class="relative group">
+                    <!-- CHANGE THIS: Replace 'path_to_your_photo.jpg' with the actual link to your image -->
+                    <img src="path_to_your_photo.jpg" alt="Mohammed Uzairullah Profile" class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-full border-4 border-blue-950 group-hover:border-blue-600 transition-all duration-300 shadow-2xl shadow-blue-900/30">
+                    
+                    <!-- Decorative blue halo accent -->
+                    <div class="absolute inset-0 rounded-full bg-blue-500/10 blur-xl scale-105 group-hover:bg-blue-500/20 transition duration-300"></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
