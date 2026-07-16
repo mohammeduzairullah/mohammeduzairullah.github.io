@@ -134,4 +134,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ---------- Scrollspy: highlight nav link for section in view ---------- */
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+    if (sections.length && navLinks.length && 'IntersectionObserver' in window) {
+        const setActive = (id) => {
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+        };
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        sections.forEach(section => spy.observe(section));
+    }
+
 });

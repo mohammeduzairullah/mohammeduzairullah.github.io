@@ -1,15 +1,16 @@
-/* ================= THEME ================= */
+/* ================= THEME (bright) ================= */
 :root {
-    --bg: #0a0a0f;
-    --bg-soft: #0f0f16;
-    --surface: #15151f;
-    --surface-hover: #1b1b28;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(139, 92, 246, 0.5);
-    --text: #e7e7ef;
-    --text-muted: #9494a8;
-    --accent: #8b5cf6;
-    --accent-2: #22d3ee;
+    --bg: #ffffff;
+    --bg-soft: #f6f7fb;
+    --surface: #ffffff;
+    --surface-hover: #faf5ff;
+    --border: rgba(15, 23, 42, 0.09);
+    --border-hover: rgba(99, 102, 241, 0.55);
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-2: #ec4899;
+    --accent-3: #f59e0b;
     --gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
@@ -25,8 +26,8 @@ body {
 ::selection { background: var(--accent); color: #fff; }
 
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--surface-hover); border-radius: 8px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-track { background: var(--bg-soft); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; border: 2px solid var(--bg-soft); }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 .serif-title { font-family: 'Playfair Display', serif; }
@@ -49,21 +50,28 @@ body {
 .blob {
     position: absolute;
     border-radius: 9999px;
-    filter: blur(100px);
-    opacity: 0.28;
+    filter: blur(110px);
+    opacity: 0.35;
     will-change: transform;
 }
 .blob-1 {
-    width: 460px; height: 460px;
+    width: 480px; height: 480px;
     background: var(--accent);
-    top: -140px; left: -120px;
+    top: -160px; left: -140px;
     animation: float1 20s ease-in-out infinite;
 }
 .blob-2 {
-    width: 400px; height: 400px;
+    width: 420px; height: 420px;
     background: var(--accent-2);
-    bottom: -140px; right: -100px;
+    bottom: -150px; right: -110px;
     animation: float2 24s ease-in-out infinite;
+}
+.blob-3 {
+    width: 320px; height: 320px;
+    background: var(--accent-3);
+    top: 40%; right: 10%;
+    opacity: 0.22;
+    animation: float1 26s ease-in-out infinite reverse;
 }
 @keyframes float1 {
     0%, 100% { transform: translate(0, 0); }
@@ -79,11 +87,11 @@ main, header, footer { position: relative; z-index: 1; }
 /* ================= CURSOR GLOW (desktop only, injected by JS) ================= */
 .cursor-glow {
     position: fixed;
-    width: 320px; height: 320px;
+    width: 340px; height: 340px;
     border-radius: 9999px;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.16), transparent 70%);
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.14), transparent 70%);
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -91,7 +99,7 @@ main, header, footer { position: relative; z-index: 1; }
 
 /* ================= NAVBAR ================= */
 .navbar {
-    background: rgba(10, 10, 15, 0.75);
+    background: rgba(255, 255, 255, 0.8);
 }
 .nav-link {
     position: relative;
@@ -142,21 +150,22 @@ main, header, footer { position: relative; z-index: 1; }
 .btn-primary {
     background: var(--gradient);
     color: #fff;
-    box-shadow: 0 8px 24px -8px rgba(139, 92, 246, 0.6);
+    box-shadow: 0 10px 24px -8px rgba(99, 102, 241, 0.5);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px -8px rgba(139, 92, 246, 0.8);
+    box-shadow: 0 14px 28px -8px rgba(236, 72, 153, 0.5);
 }
 .btn-outline {
     border: 1px solid var(--border);
     color: var(--text);
     transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    background: var(--surface);
 }
 .btn-outline:hover {
     border-color: var(--border-hover);
-    color: var(--accent-2);
+    color: var(--accent);
     transform: translateY(-2px);
 }
 
@@ -164,11 +173,12 @@ main, header, footer { position: relative; z-index: 1; }
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .card:hover {
     border-color: var(--border-hover);
-    box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.35);
+    box-shadow: 0 20px 40px -20px rgba(99, 102, 241, 0.35);
 }
 .tilt-card { transform-style: preserve-3d; will-change: transform; }
 
@@ -181,7 +191,7 @@ main, header, footer { position: relative; z-index: 1; }
 .skill-tag:hover {
     transform: translateY(-3px) scale(1.03);
     border-color: var(--border-hover);
-    color: var(--text);
+    color: var(--accent);
     background: var(--surface-hover);
 }
 
@@ -204,6 +214,7 @@ main, header, footer { position: relative; z-index: 1; }
     border-radius: 9999px;
     background: var(--surface);
     border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
     transform: translateY(12px);
@@ -218,9 +229,9 @@ main, header, footer { position: relative; z-index: 1; }
     position: fixed;
     bottom: 24px; left: 50%;
     transform: translate(-50%, 20px);
-    background: var(--surface);
+    background: var(--text);
     border: 1px solid var(--border-hover);
-    color: var(--text);
+    color: #fff;
     padding: 10px 20px;
     border-radius: 10px;
     font-size: 0.8rem;
