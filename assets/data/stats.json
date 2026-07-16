@@ -1,5 +1,17 @@
 [
-  { "value": "12+", "label": "Certificates Earned", "color": "indigo" },
-  { "value": "2+", "label": "Projects", "color": "pink" },
-  { "value": "3+", "label": "Experience", "color": "amber" }
+  {
+    "value": "12+",
+    "label": "Certificates Earned",
+    "color": "indigo"
+  },
+  {
+    "value": "1",
+    "label": "Projects",
+    "color": "pink"
+  },
+  {
+    "value": "0.1",
+    "label": "Experience",
+    "color": "amber"
+  }
 ]
