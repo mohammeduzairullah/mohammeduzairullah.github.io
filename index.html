@@ -331,6 +331,18 @@
                         <input type="email" name="from_email" required placeholder="Your email" class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
                     </div>
                     <div>
+                        <input type="tel" name="phone" placeholder="Your phone (optional)" class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <select name="reason" required class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
+                            <option value="" disabled selected>Reason for contacting</option>
+                            <option value="Job Offer">Job Offer</option>
+                            <option value="Service Offer">Service Offer</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
                         <textarea name="message" required rows="4" placeholder="Your message" class="search-input w-full px-4 py-2.5 rounded-lg text-sm"></textarea>
                     </div>
                     <button type="submit" class="btn-primary w-full text-center text-xs font-bold tracking-wider uppercase py-4 rounded-lg">
