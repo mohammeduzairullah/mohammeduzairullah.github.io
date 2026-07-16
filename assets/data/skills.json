@@ -17,12 +17,19 @@
   {
     "category": "Tools",
     "items": [
-      "Jira",
-      "Confluence",
+      "Asana",
+      "Trello",
+      "Notion",
       "Miro",
-      "Lucidchart",
-      "Excel",
-      "Google Sheets"
+      "Microsoft Teams",
+      "Slack",
+      "MS-Excel",
+      "MS-Office",
+      "MS-PowerPoint",
+      "Google Docs",
+      "Google Forms",
+      "Google Sheets",
+      "Google Workspace"
     ]
   },
   {
