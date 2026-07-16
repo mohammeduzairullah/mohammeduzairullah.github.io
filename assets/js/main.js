@@ -148,10 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ---------- EmailJS contact form ---------- */
-    // CHANGE THIS: paste the IDs from your EmailJS dashboard (Account > API Keys, and Email Services / Email Templates).
-    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    const EMAILJS_PUBLIC_KEY = '45pnnty5ZfPsjgzA_';
+    const EMAILJS_SERVICE_ID = 'service_f14bydq';
+    const EMAILJS_TEMPLATE_ID = 'template_od5ehqc';
 
     const contactForm = document.getElementById('contact-form');
     if (contactForm && window.emailjs) {
