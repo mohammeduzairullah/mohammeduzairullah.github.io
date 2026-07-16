@@ -1,0 +1,52 @@
+[
+  {
+    "id": "exp-1",
+    "type": "project",
+    "title": "Pumpkin Patch international Pre-School Website",
+    "subtitle": "Frontend Development",
+    "description": "Developed to gain hands-on experience with frontend development and website deployment, providing technical insight that complements my transition toward IT Project Management.",
+    "tags": "HTML • CSS • JavaScript • Cloudflare • Domain Management • Web Hosting",
+    "link": "https://github.com/mohammeduzairullah/Pumpkin-Patch-international-Pre-School-Website",
+    "linkLabel": "View Repo"
+  },
+  {
+    "id": "exp-2",
+    "type": "project",
+    "title": "Project name",
+    "subtitle": "Role",
+    "description": "Description of the project and its objectives.",
+    "tags": "Tech • Tech",
+    "link": "https://github.com/mohammeduzairullah",
+    "linkLabel": "View Repo"
+  },
+  {
+    "id": "exp-3",
+    "type": "internship",
+    "title": "Placeholder Internship Slot",
+    "subtitle": "Role / Company — Duration",
+    "description": "Pending update — replace with a short description of responsibilities and impact.",
+    "tags": "",
+    "link": "",
+    "linkLabel": ""
+  },
+  {
+    "id": "exp-4",
+    "type": "internship",
+    "title": "Placeholder Internship Slot",
+    "subtitle": "Role / Company — Duration",
+    "description": "Pending update — replace with a short description of responsibilities and impact.",
+    "tags": "",
+    "link": "",
+    "linkLabel": ""
+  },
+  {
+    "id": "exp-5",
+    "type": "experience",
+    "title": "Placeholder Employment Slot",
+    "subtitle": "Job Title / Company — Duration",
+    "description": "Pending update — replace with a short description of responsibilities and impact.",
+    "tags": "",
+    "link": "",
+    "linkLabel": ""
+  }
+]

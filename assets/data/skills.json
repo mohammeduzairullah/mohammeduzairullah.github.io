@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Project Management",
+    "items": ["Project Coordination", "Agile Project Management", "Scrum Framework", "Project Planning", "Risk Management", "Requirements Gathering"]
+  },
+  {
+    "category": "Tools",
+    "items": ["Jira"]
+  },
+  {
+    "category": "Ways of Working",
+    "items": ["Stakeholder Communication", "Systems Thinking", "Team Collaboration", "Time Management"]
+  },
+  {
+    "category": "Problem Solving",
+    "items": ["Analytical Problem Solving"]
+  }
+]

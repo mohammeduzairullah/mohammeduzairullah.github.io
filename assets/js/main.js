@@ -1,4 +1,95 @@
-document.addEventListener('DOMContentLoaded', () => {
+function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
+/* ---------- Render dynamic content from assets/data/*.json ---------- */
+function renderStats(stats) {
+    const el = document.getElementById('stats-container');
+    if (!el) return;
+    el.innerHTML = stats.map((s, i) => `
+        <div class="${i === 0 ? 'pl-0 pr-8' : (i === stats.length - 1 ? 'pl-8' : 'pl-8 pr-8')}">
+            <p class="text-4xl md:text-5xl font-extrabold text-${escapeHtml(s.color)}-600">${escapeHtml(s.value)}</p>
+            <p class="text-sm text-slate-500 mt-1">${escapeHtml(s.label)}</p>
+        </div>
+    `).join('');
+}
+
+function renderSkills(categories) {
+    const el = document.getElementById('skills-container');
+    if (!el) return;
+    el.innerHTML = categories.map(cat => `
+        <div class="reveal">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-4">${escapeHtml(cat.category)}</h3>
+            <div class="flex flex-wrap gap-3">
+                ${cat.items.map(item => `<span class="skill-tag px-4 py-2.5 rounded-lg text-sm font-medium">${escapeHtml(item)}</span>`).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+const EXP_TYPE_BADGES = {
+    project: ['Project', 'bg-indigo-100 text-indigo-600'],
+    internship: ['Internship', 'bg-pink-100 text-pink-600'],
+    experience: ['Work Experience', 'bg-amber-100 text-amber-600']
+};
+
+function renderExperience(list) {
+    const el = document.getElementById('experience-container');
+    if (!el) return;
+    el.innerHTML = list.map(item => {
+        const [label, badgeClass] = EXP_TYPE_BADGES[item.type] || ['Other', 'bg-slate-100 text-slate-600'];
+        return `
+        <div data-exp-type="${escapeHtml(item.type)}" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+            <div>
+                <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full ${badgeClass} mb-3">${label}</span>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">${escapeHtml(item.title)}</h3>
+                ${item.subtitle ? `<p class="text-xs text-indigo-500 font-semibold uppercase tracking-wide mb-4">${escapeHtml(item.subtitle)}</p>` : ''}
+                <p class="text-sm text-slate-600 mb-6 leading-relaxed">${escapeHtml(item.description)}</p>
+            </div>
+            ${item.tags || item.link ? `
+            <div class="flex flex-wrap gap-4 items-center">
+                ${item.tags ? `<span class="text-xs font-semibold text-indigo-500 tracking-wider uppercase">${escapeHtml(item.tags)}</span>` : ''}
+                ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="text-xs text-slate-900 underline ml-auto hover:text-indigo-600">${escapeHtml(item.linkLabel || 'View')} ↗</a>` : ''}
+            </div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+function renderCertifications(list) {
+    const el = document.getElementById('certifications-container');
+    if (!el) return;
+    el.innerHTML = list.map(c => `
+        <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+            <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">${escapeHtml(c.title)}</p></div>
+            <div>
+                <p class="text-[10px] text-slate-400 mb-2">${escapeHtml(c.issuer)}${c.certId ? ' · ID ' + escapeHtml(c.certId) : ''}</p>
+                ${c.link ? `<a href="${escapeHtml(c.link)}" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+async function loadContent() {
+    try {
+        const [stats, skills, experience, certifications] = await Promise.all([
+            fetch('assets/data/stats.json').then(r => r.json()),
+            fetch('assets/data/skills.json').then(r => r.json()),
+            fetch('assets/data/experience.json').then(r => r.json()),
+            fetch('assets/data/certifications.json').then(r => r.json())
+        ]);
+        renderStats(stats);
+        renderSkills(skills);
+        renderExperience(experience);
+        renderCertifications(certifications);
+    } catch (e) {
+        console.error('Failed to load portfolio content', e);
+    }
+}
+
+/* ---------- Interactive behavior (runs after content is rendered) ---------- */
+function initInteractions() {
 
     /* ---------- Mobile nav toggle ---------- */
     const hamburger = document.getElementById('hamburger');
@@ -192,5 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { rootMargin: '-40% 0px -55% 0px' });
         sections.forEach(section => spy.observe(section));
     }
+}
 
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadContent();
+    initInteractions();
 });

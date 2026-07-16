@@ -1,0 +1,399 @@
+const GH_OWNER = 'mohammeduzairullah';
+const GH_REPO = 'mohammeduzairullah.github.io';
+const GH_BRANCH = 'main';
+const TOKEN_KEY = 'portfolio_admin_gh_token';
+
+const DATA_FILES = {
+    stats: 'assets/data/stats.json',
+    skills: 'assets/data/skills.json',
+    experience: 'assets/data/experience.json',
+    certifications: 'assets/data/certifications.json'
+};
+
+const state = {}; // state[key] = { sha, data }
+
+function getToken() {
+    return localStorage.getItem(TOKEN_KEY) || '';
+}
+
+function b64EncodeUnicode(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
+function b64DecodeUnicode(str) {
+    return decodeURIComponent(escape(atob(str)));
+}
+
+function ghHeaders() {
+    return {
+        Authorization: `Bearer ${getToken()}`,
+        Accept: 'application/vnd.github+json'
+    };
+}
+
+async function ghGetFile(path) {
+    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}?ref=${GH_BRANCH}`, {
+        headers: ghHeaders()
+    });
+    if (!res.ok) throw new Error(`Couldn't load ${path} (${res.status})`);
+    const data = await res.json();
+    return { sha: data.sha, json: JSON.parse(b64DecodeUnicode(data.content)) };
+}
+
+async function ghPutFile(path, sha, jsonData, message) {
+    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+        method: 'PUT',
+        headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            message,
+            content: b64EncodeUnicode(JSON.stringify(jsonData, null, 2) + '\n'),
+            sha,
+            branch: GH_BRANCH
+        })
+    });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `Couldn't save ${path} (${res.status})`);
+    }
+    return res.json();
+}
+
+const toast = document.getElementById('toast');
+function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+function field(container, { label, type = 'text', value = '', options = null }) {
+    const wrap = document.createElement('div');
+    wrap.className = 'mb-3';
+    const lab = document.createElement('label');
+    lab.className = 'field-label';
+    lab.textContent = label;
+    wrap.appendChild(lab);
+
+    let input;
+    if (type === 'textarea') {
+        input = document.createElement('textarea');
+        input.rows = 3;
+    } else if (type === 'select') {
+        input = document.createElement('select');
+        (options || []).forEach(opt => {
+            const o = document.createElement('option');
+            o.value = opt;
+            o.textContent = opt;
+            if (opt === value) o.selected = true;
+            input.appendChild(o);
+        });
+    } else {
+        input = document.createElement('input');
+        input.type = type;
+    }
+    input.className = 'search-input w-full px-3 py-2 rounded-md text-sm';
+    if (type !== 'select') input.value = value;
+    wrap.appendChild(input);
+    container.appendChild(wrap);
+    return input;
+}
+
+function removeButton(onClick) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'Remove';
+    btn.className = 'btn-outline text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wide';
+    btn.addEventListener('click', onClick);
+    return btn;
+}
+
+function saveBar(onSave, onReload) {
+    const bar = document.createElement('div');
+    bar.className = 'flex gap-3 mt-4';
+    const save = document.createElement('button');
+    save.type = 'button';
+    save.textContent = 'Save Changes';
+    save.className = 'btn-primary px-5 py-2.5 rounded-lg text-sm font-bold';
+    save.addEventListener('click', onSave);
+    const reload = document.createElement('button');
+    reload.type = 'button';
+    reload.textContent = 'Reload from GitHub';
+    reload.className = 'btn-outline px-5 py-2.5 rounded-lg text-sm font-semibold';
+    reload.addEventListener('click', onReload);
+    bar.appendChild(save);
+    bar.appendChild(reload);
+    return bar;
+}
+
+/* ---------- Stats panel ---------- */
+function renderStatsPanel() {
+    const el = document.getElementById('tab-stats');
+    el.innerHTML = '';
+    const rows = document.createElement('div');
+    const entries = state.stats.data.map(s => ({ ...s }));
+
+    function draw() {
+        rows.innerHTML = '';
+        entries.forEach((s, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const value = field(card, { label: 'Value (e.g. 12+)', value: s.value });
+            const label = field(card, { label: 'Label', value: s.label });
+            const color = field(card, { label: 'Color', type: 'select', value: s.color, options: ['indigo', 'pink', 'amber', 'emerald', 'sky', 'rose', 'violet'] });
+            value.addEventListener('input', () => s.value = value.value);
+            label.addEventListener('input', () => s.label = label.value);
+            color.addEventListener('change', () => s.color = color.value);
+            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Stat';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => {
+        entries.push({ value: '0+', label: 'New Stat', color: 'indigo' });
+        draw();
+    });
+    el.appendChild(addBtn);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.stats, state.stats.sha, entries, 'Update stats via admin portal');
+                state.stats.sha = res.content.sha;
+                state.stats.data = entries;
+                showToast('Stats saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('stats'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+/* ---------- Skills panel ---------- */
+function renderSkillsPanel() {
+    const el = document.getElementById('tab-skills');
+    el.innerHTML = '';
+    const rows = document.createElement('div');
+    const entries = state.skills.data.map(c => ({ category: c.category, items: [...c.items] }));
+
+    function draw() {
+        rows.innerHTML = '';
+        entries.forEach((cat, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const name = field(card, { label: 'Category Name', value: cat.category });
+            const items = field(card, { label: 'Skills (comma-separated)', type: 'textarea', value: cat.items.join(', ') });
+            name.addEventListener('input', () => cat.category = name.value);
+            items.addEventListener('input', () => cat.items = items.value.split(',').map(s => s.trim()).filter(Boolean));
+            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Category';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => {
+        entries.push({ category: 'New Category', items: [] });
+        draw();
+    });
+    el.appendChild(addBtn);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.skills, state.skills.sha, entries, 'Update skills via admin portal');
+                state.skills.sha = res.content.sha;
+                state.skills.data = entries;
+                showToast('Skills saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('skills'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+/* ---------- Experience panel ---------- */
+function renderExperiencePanel() {
+    const el = document.getElementById('tab-experience');
+    el.innerHTML = '';
+    const rows = document.createElement('div');
+    const entries = state.experience.data.map(e => ({ ...e }));
+
+    function draw() {
+        rows.innerHTML = '';
+        entries.forEach((exp, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const type = field(card, { label: 'Type', type: 'select', value: exp.type, options: ['project', 'internship', 'experience'] });
+            const title = field(card, { label: 'Title', value: exp.title });
+            const subtitle = field(card, { label: 'Subtitle (role / company — duration)', value: exp.subtitle });
+            const description = field(card, { label: 'Description', type: 'textarea', value: exp.description });
+            const tags = field(card, { label: 'Tags (optional, e.g. HTML • CSS • JavaScript)', value: exp.tags });
+            const link = field(card, { label: 'Link (optional)', value: exp.link });
+            const linkLabel = field(card, { label: 'Link Label (optional, e.g. View Repo)', value: exp.linkLabel });
+            type.addEventListener('change', () => exp.type = type.value);
+            title.addEventListener('input', () => exp.title = title.value);
+            subtitle.addEventListener('input', () => exp.subtitle = subtitle.value);
+            description.addEventListener('input', () => exp.description = description.value);
+            tags.addEventListener('input', () => exp.tags = tags.value);
+            link.addEventListener('input', () => exp.link = link.value);
+            linkLabel.addEventListener('input', () => exp.linkLabel = linkLabel.value);
+            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Experience';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => {
+        entries.push({ id: `exp-${Date.now()}`, type: 'project', title: 'New Entry', subtitle: '', description: '', tags: '', link: '', linkLabel: '' });
+        draw();
+    });
+    el.appendChild(addBtn);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.experience, state.experience.sha, entries, 'Update experience via admin portal');
+                state.experience.sha = res.content.sha;
+                state.experience.data = entries;
+                showToast('Experience saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('experience'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+/* ---------- Certifications panel ---------- */
+function renderCertificationsPanel() {
+    const el = document.getElementById('tab-certifications');
+    el.innerHTML = '';
+    const rows = document.createElement('div');
+    const entries = state.certifications.data.map(c => ({ ...c }));
+
+    function draw() {
+        rows.innerHTML = '';
+        entries.forEach((cert, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const title = field(card, { label: 'Title', value: cert.title });
+            const issuer = field(card, { label: 'Issuer', value: cert.issuer });
+            const certId = field(card, { label: 'Certificate ID (optional)', value: cert.certId });
+            const link = field(card, { label: 'Verify Link (optional)', value: cert.link });
+            title.addEventListener('input', () => cert.title = title.value);
+            issuer.addEventListener('input', () => cert.issuer = issuer.value);
+            certId.addEventListener('input', () => cert.certId = certId.value);
+            link.addEventListener('input', () => cert.link = link.value);
+            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Certification';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => {
+        entries.push({ id: `cert-${Date.now()}`, title: 'New Certification', issuer: '', certId: '', link: '' });
+        draw();
+    });
+    el.appendChild(addBtn);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.certifications, state.certifications.sha, entries, 'Update certifications via admin portal');
+                state.certifications.sha = res.content.sha;
+                state.certifications.data = entries;
+                showToast('Certifications saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('certifications'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+const PANEL_RENDERERS = {
+    stats: renderStatsPanel,
+    skills: renderSkillsPanel,
+    experience: renderExperiencePanel,
+    certifications: renderCertificationsPanel
+};
+
+async function loadPanel(key) {
+    const panelEl = document.getElementById(`tab-${key}`);
+    panelEl.innerHTML = '<p class="text-sm text-slate-500">Loading…</p>';
+    try {
+        const { sha, json } = await ghGetFile(DATA_FILES[key]);
+        state[key] = { sha, data: json };
+        PANEL_RENDERERS[key]();
+    } catch (e) {
+        panelEl.innerHTML = `<p class="text-sm text-rose-600">${e.message}</p>`;
+    }
+}
+
+function setupTabs() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`tab-${tab.dataset.tab}`).classList.remove('hidden');
+        });
+    });
+}
+
+async function connect(token) {
+    localStorage.setItem(TOKEN_KEY, token);
+    const status = document.getElementById('gh-token-status');
+    status.textContent = 'Connecting…';
+    try {
+        const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders() });
+        if (!res.ok) throw new Error('Token rejected or missing repo access (' + res.status + ')');
+        status.textContent = 'Connected to ' + GH_OWNER + '/' + GH_REPO + '.';
+        document.getElementById('admin-panels').classList.remove('hidden');
+        setupTabs();
+        await Promise.all(Object.keys(DATA_FILES).map(loadPanel));
+    } catch (e) {
+        status.textContent = e.message;
+        document.getElementById('admin-panels').classList.add('hidden');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tokenInput = document.getElementById('gh-token-input');
+    const connectBtn = document.getElementById('gh-token-connect');
+    const clearBtn = document.getElementById('gh-token-clear');
+
+    const saved = getToken();
+    if (saved) {
+        tokenInput.value = saved;
+        connect(saved);
+    }
+
+    connectBtn.addEventListener('click', () => {
+        const token = tokenInput.value.trim();
+        if (!token) return;
+        connect(token);
+    });
+
+    clearBtn.addEventListener('click', () => {
+        localStorage.removeItem(TOKEN_KEY);
+        tokenInput.value = '';
+        document.getElementById('gh-token-status').textContent = 'Token forgotten.';
+        document.getElementById('admin-panels').classList.add('hidden');
+    });
+});
