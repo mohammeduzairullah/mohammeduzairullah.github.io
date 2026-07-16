@@ -1,5 +1,9 @@
 {
-  "badge": "— B.TECH CSE (FINAL YEAR) — ST. MARY'S",
-  "roles": ["ASPIRING PROJECT COORDINATOR", "FUTURE IT PROJECT MANAGER", "AGILE & SCRUM PRACTITIONER"],
+  "badge": "",
+  "roles": [
+    "Technical Project Coordinator",
+    "Certified Scrum Master",
+    "Jira & Agile Specialist"
+  ],
   "bio": "I am an aspiring Project Coordinator with a strong interest in leading software projects through structured planning, effective communication, and Agile practices. I enjoy organizing teams, solving project challenges, and ensuring work progresses toward clear objectives. Currently, I am building practical experience through project simulations, hands-on use of Jira, and collaborative software projects while preparing for a career in IT Project Management."
 }
