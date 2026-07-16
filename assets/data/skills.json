@@ -1,18 +1,43 @@
 [
   {
     "category": "Project Management",
-    "items": ["Project Coordination", "Agile Project Management", "Scrum Framework", "Project Planning", "Risk Management", "Requirements Gathering"]
+    "items": [
+      "Agile Methodology",
+      "Scrum",
+      "Jira",
+      "Confluence",
+      "Product Strategy",
+      "Product Management",
+      "Planning",
+      "Requirements Gathering",
+      "Stakeholder Management",
+      "Risk Management"
+    ]
   },
   {
     "category": "Tools",
-    "items": ["Jira"]
+    "items": [
+      "Jira",
+      "Confluence",
+      "Miro",
+      "Lucidchart",
+      "Excel",
+      "Google Sheets"
+    ]
   },
   {
     "category": "Ways of Working",
-    "items": ["Stakeholder Communication", "Systems Thinking", "Team Collaboration", "Time Management"]
+    "items": [
+      "Stakeholder Communication",
+      "Systems Thinking",
+      "Team Collaboration",
+      "Time Management"
+    ]
   },
   {
     "category": "Problem Solving",
-    "items": ["Analytical Problem Solving"]
+    "items": [
+      "Analytical Problem Solving"
+    ]
   }
 ]
