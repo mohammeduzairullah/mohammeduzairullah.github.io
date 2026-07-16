@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="selection:bg-indigo-500 selection:text-white">
+<body>
 
     <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
 
@@ -22,6 +22,7 @@
         <a href="#" class="text-xl font-bold tracking-widest gradient-text">MU.</a>
         <nav class="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase text-slate-500">
             <a href="#about" class="nav-link hover:text-indigo-600 transition">About</a>
+            <a href="#education" class="nav-link hover:text-indigo-600 transition">Education</a>
             <a href="#skills" class="nav-link hover:text-indigo-600 transition">Skills</a>
             <a href="#experience" class="nav-link hover:text-indigo-600 transition">Experience</a>
             <a href="#certifications" class="nav-link hover:text-indigo-600 transition">Certifications</a>
@@ -34,6 +35,7 @@
     <div id="mobile-menu" class="mobile-menu md:hidden fixed top-[64px] left-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-slate-900/5 px-6">
         <nav class="flex flex-col gap-4 pt-4 pb-6 text-sm font-semibold tracking-wide uppercase text-slate-500">
             <a href="#about" class="hover:text-indigo-600 transition">About</a>
+            <a href="#education" class="hover:text-indigo-600 transition">Education</a>
             <a href="#skills" class="hover:text-indigo-600 transition">Skills</a>
             <a href="#experience" class="hover:text-indigo-600 transition">Experience</a>
             <a href="#certifications" class="hover:text-indigo-600 transition">Certifications</a>
@@ -48,18 +50,14 @@
             <div class="grid md:grid-cols-2 gap-12 items-center w-full">
 
                 <div class="reveal">
-                    <p class="text-xs font-bold tracking-widest uppercase text-indigo-500 mb-3">— B.TECH CSE (FINAL YEAR) — ST. MARY'S</p>
+                    <p id="hero-badge" class="text-xs font-bold tracking-widest uppercase text-indigo-500 mb-3"></p>
 
                     <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-4">
                         Mohammed<br><span class="gradient-text">Uzairullah</span>
                     </h1>
-                    <p id="role-cycle" data-roles='["ASPIRING PROJECT COORDINATOR", "FUTURE IT PROJECT MANAGER", "AGILE &amp; SCRUM PRACTITIONER"]' class="text-xs md:text-sm font-semibold tracking-widest uppercase text-slate-500 mb-8">
-                        ASPIRING PROJECT COORDINATOR
-                    </p>
+                    <p id="role-cycle" class="text-xs md:text-sm font-semibold tracking-widest uppercase text-slate-500 mb-8"></p>
 
-                    <p class="max-w-xl text-slate-600 text-base md:text-lg mb-10 leading-relaxed">
-                        I am an aspiring Project Coordinator with a strong interest in leading software projects through structured planning, effective communication, and Agile practices. I enjoy organizing teams, solving project challenges, and ensuring work progresses toward clear objectives. Currently, I am building practical experience through project simulations, hands-on use of Jira, and collaborative software projects while preparing for a career in IT Project Management.
-                    </p>
+                    <p id="hero-bio" class="max-w-xl text-slate-600 text-base md:text-lg mb-10 leading-relaxed"></p>
                     <div class="flex flex-wrap gap-4">
                         <a href="#experience" class="btn-primary font-medium text-sm px-6 py-3 rounded-lg">View Work</a>
                         <a href="#contact" class="btn-outline font-medium text-sm px-6 py-3 rounded-lg">Get In Touch</a>
@@ -86,20 +84,20 @@
             <span class="text-xs font-bold tracking-widest text-indigo-500 uppercase block mb-2 reveal">[ ABOUT ME ]</span>
             <h2 class="text-3xl md:text-4xl serif-title italic text-slate-900 mb-8 reveal">Turning Complexity into Clarity</h2>
             <div class="grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-2 text-slate-600 leading-relaxed space-y-4 reveal">
-                    <p>I am an aspiring IT Project Manager passionate about transforming complex ideas into well-structured, achievable projects. My interest lies in project coordination, Agile practices, and creating systems that help teams work efficiently toward a common goal.</p>
-                    <p>Rather than focusing solely on software development, I enjoy planning, organizing, tracking progress, identifying risks, and improving collaboration between people. I believe successful projects are built through clear communication, structured execution, and continuous improvement.</p>
-                    <p>To strengthen these skills, I have completed professional project management and Agile training, gained hands-on experience with Jira, and am building practical knowledge through real project simulations and collaborative software projects. My long-term goal is to grow into a Project Manager who leads technology projects with clarity, accountability, and a systems-thinking approach.</p>
-                </div>
+                <div id="about-paragraphs" class="md:col-span-2 text-slate-600 leading-relaxed space-y-4 reveal"></div>
                 <div class="card p-6 rounded-xl reveal">
                     <h3 class="text-slate-900 font-bold mb-4 text-sm tracking-wider uppercase text-indigo-500">Quick Facts</h3>
-                    <ul class="text-xs space-y-3 text-slate-600">
-                        <li><strong class="text-slate-900">DEGREE:</strong> B.Tech CSE (2023–2027)</li>
-                        <li><strong class="text-slate-900">LOCATION:</strong> Nalgonda, Telangana, India</li>
-                        <li><strong class="text-slate-900">INTERESTS:</strong> Agile Methodologies, Project Lifecycle Management, Scrum Framework, Jira &amp; Agile, Project Tracking, Systems Thinking, Consumer Technology, Team Coordination</li>
-                    </ul>
+                    <ul id="about-quick-facts" class="text-xs space-y-3 text-slate-600"></ul>
                 </div>
             </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section id="education" class="py-24 px-6 md:px-24 border-b border-slate-900/5 bg-[var(--bg-soft)]">
+            <span class="text-xs font-bold tracking-widest text-indigo-500 uppercase block mb-2 reveal">[ ACADEMICS ]</span>
+            <h2 class="text-3xl md:text-4xl serif-title italic text-slate-900 mb-12 reveal">Education</h2>
+
+            <div id="education-container" class="grid md:grid-cols-2 gap-8"></div>
         </section>
 
         <!-- SKILLS -->

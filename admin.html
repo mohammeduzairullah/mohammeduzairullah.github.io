@@ -19,7 +19,7 @@
         .entry-card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; background: var(--surface); }
     </style>
 </head>
-<body class="selection:bg-indigo-500 selection:text-white">
+<body>
 
     <div class="bg-blobs"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
 
@@ -48,13 +48,19 @@
 
         <section id="admin-panels" class="hidden">
             <div class="flex gap-2 mb-8 flex-wrap" id="admin-tabs">
-                <button data-tab="stats" class="tab-btn active btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Stats</button>
+                <button data-tab="hero" class="tab-btn active btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Hero</button>
+                <button data-tab="about" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">About</button>
+                <button data-tab="education" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Education</button>
+                <button data-tab="stats" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Stats</button>
                 <button data-tab="skills" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Skills</button>
                 <button data-tab="experience" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Experience</button>
                 <button data-tab="certifications" class="tab-btn btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide">Certifications</button>
             </div>
 
-            <div id="tab-stats" class="tab-panel"></div>
+            <div id="tab-hero" class="tab-panel"></div>
+            <div id="tab-about" class="tab-panel hidden"></div>
+            <div id="tab-education" class="tab-panel hidden"></div>
+            <div id="tab-stats" class="tab-panel hidden"></div>
             <div id="tab-skills" class="tab-panel hidden"></div>
             <div id="tab-experience" class="tab-panel hidden"></div>
             <div id="tab-certifications" class="tab-panel hidden"></div>

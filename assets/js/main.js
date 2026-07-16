@@ -5,6 +5,52 @@ function escapeHtml(str) {
 }
 
 /* ---------- Render dynamic content from assets/data/*.json ---------- */
+function renderHero(hero) {
+    const badge = document.getElementById('hero-badge');
+    const roleEl = document.getElementById('role-cycle');
+    const bio = document.getElementById('hero-bio');
+    if (badge) badge.textContent = hero.badge;
+    if (bio) bio.textContent = hero.bio;
+    if (roleEl) {
+        roleEl.setAttribute('data-roles', JSON.stringify(hero.roles || []));
+        roleEl.textContent = (hero.roles && hero.roles[0]) || '';
+    }
+}
+
+function renderAbout(about) {
+    const paragraphs = document.getElementById('about-paragraphs');
+    if (paragraphs) {
+        paragraphs.innerHTML = about.paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    }
+    const quickFacts = document.getElementById('about-quick-facts');
+    if (quickFacts) {
+        const f = about.quickFacts || {};
+        quickFacts.innerHTML = `
+            <li><strong class="text-slate-900">DEGREE:</strong> ${escapeHtml(f.degree)}</li>
+            <li><strong class="text-slate-900">LOCATION:</strong> ${escapeHtml(f.location)}</li>
+            <li><strong class="text-slate-900">INTERESTS:</strong> ${escapeHtml(f.interests)}</li>
+        `;
+    }
+}
+
+function renderEducation(list) {
+    const el = document.getElementById('education-container');
+    if (!el) return;
+    el.innerHTML = list.map(edu => {
+        const ongoing = edu.status === 'ongoing';
+        const badgeClass = ongoing ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600';
+        const badgeLabel = ongoing ? 'Ongoing' : 'Completed';
+        return `
+        <div class="card reveal p-8 rounded-xl">
+            <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full ${badgeClass} mb-3">${badgeLabel}</span>
+            <h3 class="text-xl font-bold text-slate-900 mb-1">${escapeHtml(edu.school)}</h3>
+            <p class="text-sm text-slate-700 font-semibold mb-1">${escapeHtml(edu.degree)}${edu.fieldOfStudy ? ' in ' + escapeHtml(edu.fieldOfStudy) : ''}</p>
+            <p class="text-xs text-slate-500 mb-2">${escapeHtml(edu.startYear)} – ${edu.endYear ? escapeHtml(edu.endYear) : 'Present'}</p>
+            ${edu.grade ? `<p class="text-xs text-slate-500">Grade: ${escapeHtml(edu.grade)}</p>` : ''}
+        </div>`;
+    }).join('');
+}
+
 function renderStats(stats) {
     const el = document.getElementById('stats-container');
     if (!el) return;
@@ -73,12 +119,18 @@ function renderCertifications(list) {
 
 async function loadContent() {
     try {
-        const [stats, skills, experience, certifications] = await Promise.all([
+        const [hero, about, education, stats, skills, experience, certifications] = await Promise.all([
+            fetch('assets/data/hero.json').then(r => r.json()),
+            fetch('assets/data/about.json').then(r => r.json()),
+            fetch('assets/data/education.json').then(r => r.json()),
             fetch('assets/data/stats.json').then(r => r.json()),
             fetch('assets/data/skills.json').then(r => r.json()),
             fetch('assets/data/experience.json').then(r => r.json()),
             fetch('assets/data/certifications.json').then(r => r.json())
         ]);
+        renderHero(hero);
+        renderAbout(about);
+        renderEducation(education);
         renderStats(stats);
         renderSkills(skills);
         renderExperience(experience);

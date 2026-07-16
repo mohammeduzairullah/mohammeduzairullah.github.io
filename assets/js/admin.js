@@ -4,6 +4,9 @@ const GH_BRANCH = 'main';
 const TOKEN_KEY = 'portfolio_admin_gh_token';
 
 const DATA_FILES = {
+    hero: 'assets/data/hero.json',
+    about: 'assets/data/about.json',
+    education: 'assets/data/education.json',
     stats: 'assets/data/stats.json',
     skills: 'assets/data/skills.json',
     experience: 'assets/data/experience.json',
@@ -123,6 +126,142 @@ function saveBar(onSave, onReload) {
     bar.appendChild(save);
     bar.appendChild(reload);
     return bar;
+}
+
+/* ---------- Hero panel ---------- */
+function renderHeroPanel() {
+    const el = document.getElementById('tab-hero');
+    el.innerHTML = '';
+    const data = { badge: state.hero.data.badge, roles: [...state.hero.data.roles], bio: state.hero.data.bio };
+
+    const card = document.createElement('div');
+    card.className = 'entry-card';
+    const badge = field(card, { label: 'Badge line (above your name)', value: data.badge });
+    const roles = field(card, { label: 'Cycling roles (one per line)', type: 'textarea', value: data.roles.join('\n') });
+    const bio = field(card, { label: 'Bio paragraph (below your name)', type: 'textarea', value: data.bio });
+    badge.addEventListener('input', () => data.badge = badge.value);
+    roles.addEventListener('input', () => data.roles = roles.value.split('\n').map(s => s.trim()).filter(Boolean));
+    bio.addEventListener('input', () => data.bio = bio.value);
+    el.appendChild(card);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.hero, state.hero.sha, data, 'Update hero content via admin portal');
+                state.hero.sha = res.content.sha;
+                state.hero.data = data;
+                showToast('Hero content saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('hero'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+/* ---------- About panel ---------- */
+function renderAboutPanel() {
+    const el = document.getElementById('tab-about');
+    el.innerHTML = '';
+    const data = { paragraphs: [...state.about.data.paragraphs], quickFacts: { ...state.about.data.quickFacts } };
+
+    const rows = document.createElement('div');
+    function draw() {
+        rows.innerHTML = '';
+        data.paragraphs.forEach((p, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const para = field(card, { label: `Paragraph ${i + 1}`, type: 'textarea', value: p });
+            para.addEventListener('input', () => data.paragraphs[i] = para.value);
+            card.appendChild(removeButton(() => { data.paragraphs.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Paragraph';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => { data.paragraphs.push('New paragraph.'); draw(); });
+    el.appendChild(addBtn);
+
+    const factsCard = document.createElement('div');
+    factsCard.className = 'entry-card';
+    const degree = field(factsCard, { label: 'Quick Facts: Degree', value: data.quickFacts.degree });
+    const location = field(factsCard, { label: 'Quick Facts: Location', value: data.quickFacts.location });
+    const interests = field(factsCard, { label: 'Quick Facts: Interests', type: 'textarea', value: data.quickFacts.interests });
+    degree.addEventListener('input', () => data.quickFacts.degree = degree.value);
+    location.addEventListener('input', () => data.quickFacts.location = location.value);
+    interests.addEventListener('input', () => data.quickFacts.interests = interests.value);
+    el.appendChild(factsCard);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.about, state.about.sha, data, 'Update about content via admin portal');
+                state.about.sha = res.content.sha;
+                state.about.data = data;
+                showToast('About content saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('about'); showToast('Reloaded from GitHub.'); }
+    ));
+}
+
+/* ---------- Education panel ---------- */
+function renderEducationPanel() {
+    const el = document.getElementById('tab-education');
+    el.innerHTML = '';
+    const rows = document.createElement('div');
+    const entries = state.education.data.map(e => ({ ...e }));
+
+    function draw() {
+        rows.innerHTML = '';
+        entries.forEach((edu, i) => {
+            const card = document.createElement('div');
+            card.className = 'entry-card';
+            const school = field(card, { label: 'School / Institution', value: edu.school });
+            const degree = field(card, { label: 'Degree', value: edu.degree });
+            const fieldOfStudy = field(card, { label: 'Field of Study', value: edu.fieldOfStudy });
+            const startYear = field(card, { label: 'Start Year', value: edu.startYear });
+            const endYear = field(card, { label: 'End Year (leave blank if ongoing)', value: edu.endYear });
+            const status = field(card, { label: 'Status', type: 'select', value: edu.status, options: ['ongoing', 'completed'] });
+            const grade = field(card, { label: 'Grade (optional)', value: edu.grade });
+            school.addEventListener('input', () => edu.school = school.value);
+            degree.addEventListener('input', () => edu.degree = degree.value);
+            fieldOfStudy.addEventListener('input', () => edu.fieldOfStudy = fieldOfStudy.value);
+            startYear.addEventListener('input', () => edu.startYear = startYear.value);
+            endYear.addEventListener('input', () => edu.endYear = endYear.value);
+            status.addEventListener('change', () => edu.status = status.value);
+            grade.addEventListener('input', () => edu.grade = grade.value);
+            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+            rows.appendChild(card);
+        });
+    }
+    draw();
+    el.appendChild(rows);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.textContent = '+ Add Education';
+    addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
+    addBtn.addEventListener('click', () => {
+        entries.push({ id: `edu-${Date.now()}`, school: 'New School', degree: '', fieldOfStudy: '', startYear: '', endYear: '', status: 'ongoing', grade: '' });
+        draw();
+    });
+    el.appendChild(addBtn);
+
+    el.appendChild(saveBar(
+        async () => {
+            try {
+                const res = await ghPutFile(DATA_FILES.education, state.education.sha, entries, 'Update education via admin portal');
+                state.education.sha = res.content.sha;
+                state.education.data = entries;
+                showToast('Education saved — live site will update shortly.');
+            } catch (e) { showToast(e.message); }
+        },
+        async () => { await loadPanel('education'); showToast('Reloaded from GitHub.'); }
+    ));
 }
 
 /* ---------- Stats panel ---------- */
@@ -326,6 +465,9 @@ function renderCertificationsPanel() {
 }
 
 const PANEL_RENDERERS = {
+    hero: renderHeroPanel,
+    about: renderAboutPanel,
+    education: renderEducationPanel,
     stats: renderStatsPanel,
     skills: renderSkillsPanel,
     experience: renderExperiencePanel,
