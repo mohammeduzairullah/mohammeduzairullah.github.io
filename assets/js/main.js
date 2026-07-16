@@ -86,6 +86,9 @@ function renderExperience(list) {
     if (!el) return;
     el.innerHTML = list.map(item => {
         const [label, badgeClass] = EXP_TYPE_BADGES[item.type] || ['Other', 'bg-slate-100 text-slate-600'];
+        // Back-compat: older entries may still use a single link/linkLabel pair instead of links[].
+        const links = (item.links && item.links.length ? item.links : (item.link ? [{ label: item.linkLabel, url: item.link }] : []))
+            .filter(l => l.url);
         return `
         <div data-exp-type="${escapeHtml(item.type)}" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
             <div>
@@ -94,10 +97,10 @@ function renderExperience(list) {
                 ${item.subtitle ? `<p class="text-xs text-indigo-500 font-semibold uppercase tracking-wide mb-4">${escapeHtml(item.subtitle)}</p>` : ''}
                 <p class="text-sm text-slate-600 mb-6 leading-relaxed">${escapeHtml(item.description)}</p>
             </div>
-            ${item.tags || item.link ? `
+            ${item.tags || links.length ? `
             <div class="flex flex-wrap gap-4 items-center">
                 ${item.tags ? `<span class="text-xs font-semibold text-indigo-500 tracking-wider uppercase">${escapeHtml(item.tags)}</span>` : ''}
-                ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" class="text-xs text-slate-900 underline ml-auto hover:text-indigo-600">${escapeHtml(item.linkLabel || 'View')} ↗</a>` : ''}
+                ${links.length ? `<div class="flex flex-wrap gap-3 ml-auto">${links.map(l => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">${escapeHtml(l.label || 'View')} ↗</a>`).join('')}</div>` : ''}
             </div>` : ''}
         </div>`;
     }).join('');

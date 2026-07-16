@@ -4,9 +4,11 @@
     "type": "project",
     "title": "Pumpkin Patch international Pre-School Website",
     "subtitle": "Frontend Development, Project Manager",
-    "description": "Developed to gain hands-on experience with frontend development and website deployment, providing technical insight that complements my transition toward IT Project Management.\nwww.pumpkinpatchintpreschool.com",
+    "description": "Developed to gain hands-on experience with frontend development and website deployment, providing technical insight that complements my transition toward IT Project Management.",
     "tags": "HTML • CSS • JavaScript • Cloudflare • Domain Management • Web Hosting • Google Sheets • Google Word • MS-Excel",
-    "link": "https://github.com/mohammeduzairullah/Pumpkin-Patch-international-Pre-School-Website",
-    "linkLabel": "View Repo"
+    "links": [
+      { "label": "View Repo", "url": "https://github.com/mohammeduzairullah/Pumpkin-Patch-international-Pre-School-Website" },
+      { "label": "View Live Site", "url": "https://www.pumpkinpatchintpreschool.com" }
+    ]
   }
 ]

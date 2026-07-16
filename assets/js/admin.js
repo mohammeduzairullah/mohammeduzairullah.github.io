@@ -363,7 +363,14 @@ function renderExperiencePanel() {
     const el = document.getElementById('tab-experience');
     el.innerHTML = '';
     const rows = document.createElement('div');
-    const entries = state.experience.data.map(e => ({ ...e }));
+    // Migrate legacy single link/linkLabel fields into the links array.
+    const entries = state.experience.data.map(e => {
+        const links = e.links && e.links.length
+            ? e.links.map(l => ({ ...l }))
+            : (e.link ? [{ label: e.linkLabel || 'View', url: e.link }] : []);
+        const { link, linkLabel, ...rest } = e;
+        return { ...rest, links };
+    });
 
     function draw() {
         rows.innerHTML = '';
@@ -375,16 +382,56 @@ function renderExperiencePanel() {
             const subtitle = field(card, { label: 'Subtitle (role / company — duration)', value: exp.subtitle });
             const description = field(card, { label: 'Description', type: 'textarea', value: exp.description });
             const tags = field(card, { label: 'Tags (optional, e.g. HTML • CSS • JavaScript)', value: exp.tags });
-            const link = field(card, { label: 'Link (optional — deployed site, product, or repo)', value: exp.link });
-            const linkLabel = field(card, { label: 'Link Label (optional, e.g. "View Live Site" or "View Repo")', value: exp.linkLabel });
             type.addEventListener('change', () => exp.type = type.value);
             title.addEventListener('input', () => exp.title = title.value);
             subtitle.addEventListener('input', () => exp.subtitle = subtitle.value);
             description.addEventListener('input', () => exp.description = description.value);
             tags.addEventListener('input', () => exp.tags = tags.value);
-            link.addEventListener('input', () => exp.link = link.value);
-            linkLabel.addEventListener('input', () => exp.linkLabel = linkLabel.value);
-            card.appendChild(removeButton(() => { entries.splice(i, 1); draw(); }));
+
+            const linksLabel = document.createElement('p');
+            linksLabel.className = 'field-label';
+            linksLabel.textContent = 'Links (optional — repo, live site, etc.)';
+            card.appendChild(linksLabel);
+
+            const linksWrap = document.createElement('div');
+            card.appendChild(linksWrap);
+
+            function drawLinks() {
+                linksWrap.innerHTML = '';
+                exp.links.forEach((lnk, li) => {
+                    const row = document.createElement('div');
+                    row.className = 'flex gap-2 items-center mb-2';
+                    const labelInput = document.createElement('input');
+                    labelInput.type = 'text';
+                    labelInput.placeholder = 'Label (e.g. View Repo, View Live Site)';
+                    labelInput.value = lnk.label || '';
+                    labelInput.className = 'search-input px-3 py-2 rounded-md text-sm w-1/3';
+                    const urlInput = document.createElement('input');
+                    urlInput.type = 'url';
+                    urlInput.placeholder = 'https://...';
+                    urlInput.value = lnk.url || '';
+                    urlInput.className = 'search-input px-3 py-2 rounded-md text-sm flex-1';
+                    labelInput.addEventListener('input', () => lnk.label = labelInput.value);
+                    urlInput.addEventListener('input', () => lnk.url = urlInput.value);
+                    row.appendChild(labelInput);
+                    row.appendChild(urlInput);
+                    row.appendChild(removeButton(() => { exp.links.splice(li, 1); drawLinks(); }));
+                    linksWrap.appendChild(row);
+                });
+            }
+            drawLinks();
+
+            const addLinkBtn = document.createElement('button');
+            addLinkBtn.type = 'button';
+            addLinkBtn.textContent = '+ Add Link';
+            addLinkBtn.className = 'btn-outline text-[10px] px-3 py-1.5 rounded-md font-bold uppercase tracking-wide mb-4';
+            addLinkBtn.addEventListener('click', () => { exp.links.push({ label: '', url: '' }); drawLinks(); });
+            card.appendChild(addLinkBtn);
+
+            card.appendChild(document.createElement('br'));
+            const removeEntryBtn = removeButton(() => { entries.splice(i, 1); draw(); });
+            removeEntryBtn.textContent = 'Remove This Entry';
+            card.appendChild(removeEntryBtn);
             rows.appendChild(card);
         });
     }
@@ -396,7 +443,7 @@ function renderExperiencePanel() {
     addBtn.textContent = '+ Add Experience';
     addBtn.className = 'btn-outline px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide mb-4';
     addBtn.addEventListener('click', () => {
-        entries.push({ id: `exp-${Date.now()}`, type: 'project', title: 'New Entry', subtitle: '', description: '', tags: '', link: '', linkLabel: '' });
+        entries.push({ id: `exp-${Date.now()}`, type: 'project', title: 'New Entry', subtitle: '', description: '', tags: '', links: [] });
         draw();
     });
     el.appendChild(addBtn);
@@ -404,9 +451,10 @@ function renderExperiencePanel() {
     el.appendChild(saveBar(
         async () => {
             try {
-                const res = await ghPutFile(DATA_FILES.experience, state.experience.sha, entries, 'Update experience via admin portal');
+                const payload = entries.map(e => ({ ...e, links: e.links.filter(l => l.url) }));
+                const res = await ghPutFile(DATA_FILES.experience, state.experience.sha, payload, 'Update experience via admin portal');
                 state.experience.sha = res.content.sha;
-                state.experience.data = entries;
+                state.experience.data = payload;
                 showToast('Experience saved — live site will update shortly.');
             } catch (e) { showToast(e.message); }
         },
