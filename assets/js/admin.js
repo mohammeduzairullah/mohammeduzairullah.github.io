@@ -375,8 +375,8 @@ function renderExperiencePanel() {
             const subtitle = field(card, { label: 'Subtitle (role / company — duration)', value: exp.subtitle });
             const description = field(card, { label: 'Description', type: 'textarea', value: exp.description });
             const tags = field(card, { label: 'Tags (optional, e.g. HTML • CSS • JavaScript)', value: exp.tags });
-            const link = field(card, { label: 'Link (optional)', value: exp.link });
-            const linkLabel = field(card, { label: 'Link Label (optional, e.g. View Repo)', value: exp.linkLabel });
+            const link = field(card, { label: 'Link (optional — deployed site, product, or repo)', value: exp.link });
+            const linkLabel = field(card, { label: 'Link Label (optional, e.g. "View Live Site" or "View Repo")', value: exp.linkLabel });
             type.addEventListener('change', () => exp.type = type.value);
             title.addEventListener('input', () => exp.title = title.value);
             subtitle.addEventListener('input', () => exp.subtitle = subtitle.value);

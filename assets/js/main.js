@@ -107,11 +107,11 @@ function renderCertifications(list) {
     const el = document.getElementById('certifications-container');
     if (!el) return;
     el.innerHTML = list.map(c => `
-        <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
-            <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">${escapeHtml(c.title)}</p></div>
+        <div data-cert-item class="card reveal aspect-square p-2.5 rounded-lg flex flex-col justify-between text-center">
+            <div class="flex-1 flex items-center justify-center"><p class="text-[11px] font-semibold text-slate-900 leading-snug">${escapeHtml(c.title)}</p></div>
             <div>
-                <p class="text-[10px] text-slate-400 mb-2">${escapeHtml(c.issuer)}${c.certId ? ' · ID ' + escapeHtml(c.certId) : ''}</p>
-                ${c.link ? `<a href="${escapeHtml(c.link)}" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a>` : ''}
+                <p class="text-[8px] text-slate-400 mb-1 truncate">${escapeHtml(c.issuer)}${c.certId ? ' · ID ' + escapeHtml(c.certId) : ''}</p>
+                ${c.link ? `<a href="${escapeHtml(c.link)}" target="_blank" rel="noopener" class="text-[8px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a>` : ''}
             </div>
         </div>
     `).join('');
