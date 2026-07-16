@@ -134,6 +134,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ---------- Work experience type filter ---------- */
+    const expFilter = document.getElementById('exp-filter');
+    if (expFilter) {
+        const cards = document.querySelectorAll('[data-exp-type]');
+        expFilter.addEventListener('change', () => {
+            const val = expFilter.value;
+            cards.forEach(card => {
+                const match = val === 'all' || card.getAttribute('data-exp-type') === val;
+                card.style.display = match ? '' : 'none';
+            });
+        });
+    }
+
+    /* ---------- EmailJS contact form ---------- */
+    // CHANGE THIS: paste the IDs from your EmailJS dashboard (Account > API Keys, and Email Services / Email Templates).
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm && window.emailjs) {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalLabel = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
+                .then(() => {
+                    showToast('Message sent — thank you!');
+                    contactForm.reset();
+                })
+                .catch(() => {
+                    showToast('Something went wrong — please email me directly.');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalLabel;
+                });
+        });
+    }
+
     /* ---------- Scrollspy: highlight nav link for section in view ---------- */
     const sections = document.querySelectorAll('main section[id]');
     const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');

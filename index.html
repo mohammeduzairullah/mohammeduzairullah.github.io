@@ -23,7 +23,7 @@
         <nav class="hidden md:flex space-x-8 text-xs font-semibold tracking-widest uppercase text-slate-500">
             <a href="#about" class="nav-link hover:text-indigo-600 transition">About</a>
             <a href="#skills" class="nav-link hover:text-indigo-600 transition">Skills</a>
-            <a href="#projects" class="nav-link hover:text-indigo-600 transition">Projects</a>
+            <a href="#experience" class="nav-link hover:text-indigo-600 transition">Experience</a>
             <a href="#certifications" class="nav-link hover:text-indigo-600 transition">Certifications</a>
             <a href="#contact" class="nav-link hover:text-indigo-600 transition">Contact</a>
         </nav>
@@ -35,7 +35,7 @@
         <nav class="flex flex-col gap-4 pt-4 pb-6 text-sm font-semibold tracking-wide uppercase text-slate-500">
             <a href="#about" class="hover:text-indigo-600 transition">About</a>
             <a href="#skills" class="hover:text-indigo-600 transition">Skills</a>
-            <a href="#projects" class="hover:text-indigo-600 transition">Projects</a>
+            <a href="#experience" class="hover:text-indigo-600 transition">Experience</a>
             <a href="#certifications" class="hover:text-indigo-600 transition">Certifications</a>
             <a href="#contact" class="hover:text-indigo-600 transition">Contact</a>
         </nav>
@@ -61,7 +61,7 @@
                         I am an aspiring Project Coordinator with a strong interest in leading software projects through structured planning, effective communication, and Agile practices. I enjoy organizing teams, solving project challenges, and ensuring work progresses toward clear objectives. Currently, I am building practical experience through project simulations, hands-on use of Jira, and collaborative software projects while preparing for a career in IT Project Management.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#projects" class="btn-primary font-medium text-sm px-6 py-3 rounded-lg">View Work</a>
+                        <a href="#experience" class="btn-primary font-medium text-sm px-6 py-3 rounded-lg">View Work</a>
                         <a href="#contact" class="btn-outline font-medium text-sm px-6 py-3 rounded-lg">Get In Touch</a>
                     </div>
                 </div>
@@ -73,6 +73,25 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="reveal px-6 md:px-24 py-14 border-b border-slate-900/5">
+            <div class="flex flex-wrap gap-x-4 gap-y-8 divide-x divide-slate-900/10">
+                <!-- CHANGE THIS: update counts as your experience grows -->
+                <div class="pl-0 pr-8">
+                    <p class="text-4xl md:text-5xl font-extrabold text-indigo-600">12+</p>
+                    <p class="text-sm text-slate-500 mt-1">Certifications Earned</p>
+                </div>
+                <div class="pl-8 pr-8">
+                    <p class="text-4xl md:text-5xl font-extrabold text-pink-600">5+</p>
+                    <p class="text-sm text-slate-500 mt-1">Projects &amp; Experience</p>
+                </div>
+                <div class="pl-8">
+                    <p class="text-4xl md:text-5xl font-extrabold text-amber-500">2027</p>
+                    <p class="text-sm text-slate-500 mt-1">Expected Graduation</p>
+                </div>
             </div>
         </section>
 
@@ -141,16 +160,27 @@
             </div>
         </section>
 
-        <!-- PROJECTS -->
-        <section id="projects" class="py-24 px-6 md:px-24 border-b border-slate-900/5">
-            <span class="text-xs font-bold tracking-widest text-indigo-500 uppercase block mb-2 reveal">[ PORTFOLIO ]</span>
-            <h2 class="text-3xl md:text-4xl serif-title italic text-slate-900 mb-12 reveal">Featured Projects</h2>
+        <!-- WORK EXPERIENCE -->
+        <section id="experience" class="py-24 px-6 md:px-24 border-b border-slate-900/5">
+            <span class="text-xs font-bold tracking-widest text-indigo-500 uppercase block mb-2 reveal">[ CAREER JOURNEY ]</span>
+            <h2 class="text-3xl md:text-4xl serif-title italic text-slate-900 mb-8 reveal">Work Experience</h2>
+
+            <div class="max-w-xs mb-10 reveal">
+                <select id="exp-filter" class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
+                    <option value="all">All</option>
+                    <option value="project">Projects</option>
+                    <option value="internship">Internships</option>
+                    <option value="experience">Work Experience</option>
+                </select>
+            </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+                <!-- PROJECT -->
+                <div data-exp-type="project" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
                     <div>
-                        <span class="text-xs font-bold text-indigo-500 tracking-wider block mb-2">01 — Frontend Development</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-4">Pumpkin Patch international Pre-School Website</h3>
+                        <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-600 mb-3">Project</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Pumpkin Patch international Pre-School Website</h3>
+                        <p class="text-xs text-indigo-500 font-semibold uppercase tracking-wide mb-4">Frontend Development</p>
                         <p class="text-sm text-slate-600 mb-6 leading-relaxed">Developed to gain hands-on experience with frontend development and website deployment, providing technical insight that complements my transition toward IT Project Management.</p>
                     </div>
                     <div class="flex flex-wrap gap-4 items-center">
@@ -159,15 +189,47 @@
                     </div>
                 </div>
 
-                <div class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+                <!-- PROJECT (placeholder) -->
+                <div data-exp-type="project" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
                     <div>
-                        <span class="text-xs font-bold text-indigo-500 tracking-wider block mb-2">02 — Role</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-4">Project name</h3>
+                        <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-600 mb-3">Project</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Project name</h3>
+                        <p class="text-xs text-indigo-500 font-semibold uppercase tracking-wide mb-4">Role</p>
                         <p class="text-sm text-slate-600 mb-6 leading-relaxed">Description of the project and its objectives.</p>
                     </div>
                     <div class="flex flex-wrap gap-4 items-center">
                         <span class="text-xs font-semibold text-indigo-500 tracking-wider uppercase">Tech • Tech</span>
                         <a href="https://github.com/mohammeduzairullah" target="_blank" rel="noopener" class="text-xs text-slate-900 underline ml-auto hover:text-indigo-600">View Repo ↗</a>
+                    </div>
+                </div>
+
+                <!-- INTERNSHIP (placeholder) -->
+                <div data-exp-type="internship" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-pink-100 text-pink-600 mb-3">Internship</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Placeholder Internship Slot</h3>
+                        <p class="text-xs text-pink-500 font-semibold uppercase tracking-wide mb-4">Role / Company — Duration</p>
+                        <p class="text-sm text-slate-600 mb-6 leading-relaxed">Pending update — replace with a short description of responsibilities and impact.</p>
+                    </div>
+                </div>
+
+                <!-- INTERNSHIP (placeholder) -->
+                <div data-exp-type="internship" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-pink-100 text-pink-600 mb-3">Internship</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Placeholder Internship Slot</h3>
+                        <p class="text-xs text-pink-500 font-semibold uppercase tracking-wide mb-4">Role / Company — Duration</p>
+                        <p class="text-sm text-slate-600 mb-6 leading-relaxed">Pending update — replace with a short description of responsibilities and impact.</p>
+                    </div>
+                </div>
+
+                <!-- WORK EXPERIENCE (placeholder) -->
+                <div data-exp-type="experience" class="card tilt-card reveal p-8 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-amber-100 text-amber-600 mb-3">Work Experience</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Placeholder Employment Slot</h3>
+                        <p class="text-xs text-amber-500 font-semibold uppercase tracking-wide mb-4">Job Title / Company — Duration</p>
+                        <p class="text-sm text-slate-600 mb-6 leading-relaxed">Pending update — replace with a short description of responsibilities and impact.</p>
                     </div>
                 </div>
             </div>
@@ -178,74 +240,59 @@
             <span class="text-xs font-bold tracking-widest text-indigo-500 uppercase block mb-2 reveal">[ ACHIEVEMENTS ]</span>
             <h2 class="text-3xl md:text-4xl serif-title italic text-slate-900 mb-6 reveal">Certifications &amp; Training</h2>
 
-            <div class="max-w-sm mb-12 reveal">
+            <div class="max-w-sm mb-10 reveal">
                 <input id="cert-search" type="text" placeholder="Search certifications..." class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12">
-
-                <div class="reveal">
-                    <h3 class="text-lg font-bold text-indigo-500 mb-6 uppercase tracking-wider border-b border-slate-900/10 pb-2">Internship Experience</h3>
-                    <div class="space-y-4">
-                        <div data-cert-item class="card p-4 rounded-lg"><p class="text-sm text-slate-900 font-semibold">01. Placeholder Internship Slot</p><span class="text-xs text-slate-500">Pending Update</span></div>
-                        <div data-cert-item class="card p-4 rounded-lg"><p class="text-sm text-slate-900 font-semibold">02. Placeholder Internship Slot</p><span class="text-xs text-slate-500">Change text to fill slot</span></div>
-                    </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Foundations of Project Management</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID HL3F07VNOQ7A</p><a href="https://www.coursera.org/account/accomplishments/verify/HL3F07VNOQ7A" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
                 </div>
-
-                <div class="reveal">
-                    <h3 class="text-lg font-bold text-indigo-500 mb-6 uppercase tracking-wider border-b border-slate-900/10 pb-2">Course Certifications</h3>
-                    <div class="space-y-4">
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">01. Foundations of Project Management — Google</p><span class="text-xs text-slate-500">ID: HL3F07VNOQ7A</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/HL3F07VNOQ7A" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">02. Project Initiation: Starting a Successful Project — Google</p><span class="text-xs text-slate-500">ID: DWVR6ZYFXV8F</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/DWVR6ZYFXV8F" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">03. Project Planning: Putting It All Together — Google</p><span class="text-xs text-slate-500">ID: Y8ILRVVJFC4L</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/Y8ILRVVJFC4L" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">04. Project Execution: Running the Project — Google</p><span class="text-xs text-slate-500">ID: RROJL25E2D3S</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/RROJL25E2D3S" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">05. Agile Project Management — Google</p><span class="text-xs text-slate-500">ID: OZQ0QTEDQMQT</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/OZQ0QTEDQMQT" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">06. Capstone: Applying Project Management in the Real World — Google</p><span class="text-xs text-slate-500">ID: Z9TC7JWMLIFR</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/Z9TC7JWMLIFR" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">07. Introduction to Scrum Master Training — LearnQuest</p><span class="text-xs text-slate-500">ID: OFJM2LXIUZ9D</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/OFJM2LXIUZ9D" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">08. Scrum Master Certification: Scrum Methodologies — LearnQuest</p><span class="text-xs text-slate-500">ID: SFMOVIHY945D</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/SFMOVIHY945D" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">09. Scrum Master Certification: Scaling Agile and the Team-of-Teams — LearnQuest</p><span class="text-xs text-slate-500">ID: PPQID1ECKI81</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/PPQID1ECKI81" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">10. Combining Scrum with Other Agile Methodologies — LearnQuest</p><span class="text-xs text-slate-500">ID: UIXY6HXOH5HR</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/UIXY6HXOH5HR" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">11. Agile with Atlassian Jira — Atlassian</p><span class="text-xs text-slate-500">ID: S7MRYJPORUNA</span></div>
-                            <a href="https://www.coursera.org/account/accomplishments/verify/S7MRYJPORUNA" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                        <div data-cert-item class="card p-4 rounded-lg flex items-center justify-between gap-3 flex-wrap">
-                            <div><p class="text-sm text-slate-900 font-semibold">12. Siemens Mobility — Project Manager Job Simulation</p><span class="text-xs text-slate-500">ID: ztk7BpBtefMnqgemz</span></div>
-                            <a href="https://www.theforage.com/completion-certificates/YtWaumzWHmKiqP63y/zSefEeEKvojiQqiaH_YtWaumzWHmKiqP63y_6a4377bf2f311f9c3f017fef_1782810545094_completion_certificate.pdf" target="_blank" rel="noopener" class="text-xs text-slate-900 underline hover:text-indigo-600">View ↗</a>
-                        </div>
-                    </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Project Initiation: Starting a Successful Project</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID DWVR6ZYFXV8F</p><a href="https://www.coursera.org/account/accomplishments/verify/DWVR6ZYFXV8F" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
                 </div>
-
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Project Planning: Putting It All Together</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID Y8ILRVVJFC4L</p><a href="https://www.coursera.org/account/accomplishments/verify/Y8ILRVVJFC4L" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Project Execution: Running the Project</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID RROJL25E2D3S</p><a href="https://www.coursera.org/account/accomplishments/verify/RROJL25E2D3S" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Agile Project Management</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID OZQ0QTEDQMQT</p><a href="https://www.coursera.org/account/accomplishments/verify/OZQ0QTEDQMQT" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Capstone: Applying Project Management in the Real World</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Google · ID Z9TC7JWMLIFR</p><a href="https://www.coursera.org/account/accomplishments/verify/Z9TC7JWMLIFR" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Introduction to Scrum Master Training</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">LearnQuest · ID OFJM2LXIUZ9D</p><a href="https://www.coursera.org/account/accomplishments/verify/OFJM2LXIUZ9D" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Scrum Master Certification: Scrum Methodologies</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">LearnQuest · ID SFMOVIHY945D</p><a href="https://www.coursera.org/account/accomplishments/verify/SFMOVIHY945D" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Scrum Master Certification: Scaling Agile and the Team-of-Teams</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">LearnQuest · ID PPQID1ECKI81</p><a href="https://www.coursera.org/account/accomplishments/verify/PPQID1ECKI81" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Combining Scrum with Other Agile Methodologies</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">LearnQuest · ID UIXY6HXOH5HR</p><a href="https://www.coursera.org/account/accomplishments/verify/UIXY6HXOH5HR" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Agile with Atlassian Jira</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">Atlassian · ID S7MRYJPORUNA</p><a href="https://www.coursera.org/account/accomplishments/verify/S7MRYJPORUNA" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
+                <div data-cert-item class="card reveal aspect-square p-4 rounded-xl flex flex-col justify-between text-center">
+                    <div class="flex-1 flex items-center justify-center"><p class="text-sm font-semibold text-slate-900 leading-snug">Siemens Mobility — Project Manager Job Simulation</p></div>
+                    <div><p class="text-[10px] text-slate-400 mb-2">ID ztk7BpBtefMnqgemz</p><a href="https://www.theforage.com/completion-certificates/YtWaumzWHmKiqP63y/zSefEeEKvojiQqiaH_YtWaumzWHmKiqP63y_6a4377bf2f311f9c3f017fef_1782810545094_completion_certificate.pdf" target="_blank" rel="noopener" class="text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:underline">View ↗</a></div>
+                </div>
             </div>
         </section>
 
@@ -275,14 +322,21 @@
                     </div>
                 </div>
 
-                <div class="space-y-4 reveal">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Prefer to send a direct message?</label>
-                    <p class="text-sm text-slate-600 mb-6 leading-relaxed">Click the button below to open my contact form and drop me a line directly.</p>
-
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScqdoKfccCjesdOK7gdELm9rQAIP4zgI5RZv742VI2ao1KgSg/viewform" target="_blank" rel="noopener" class="btn-primary inline-block w-full text-center text-xs font-bold tracking-wider uppercase py-4 rounded-lg">
-                        Open Contact Form ↗
-                    </a>
-                </div>
+                <form id="contact-form" class="space-y-4 reveal">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Send a direct message</label>
+                    <div>
+                        <input type="text" name="from_name" required placeholder="Your name" class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <input type="email" name="from_email" required placeholder="Your email" class="search-input w-full px-4 py-2.5 rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <textarea name="message" required rows="4" placeholder="Your message" class="search-input w-full px-4 py-2.5 rounded-lg text-sm"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary w-full text-center text-xs font-bold tracking-wider uppercase py-4 rounded-lg">
+                        Send Message
+                    </button>
+                </form>
             </div>
         </section>
 
@@ -298,6 +352,7 @@
     </div>
     <div id="toast" class="toast"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
