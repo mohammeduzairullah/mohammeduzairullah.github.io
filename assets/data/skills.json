@@ -1,6 +1,6 @@
 [
   {
-    "category": "Project Management",
+    "category": "Project & Product Management",
     "items": [
       "Agile Methodology",
       "Scrum",
@@ -15,7 +15,7 @@
     ]
   },
   {
-    "category": "Tools",
+    "category": "Tools & Collaboration platforms",
     "items": [
       "Asana",
       "Trello",
@@ -33,18 +33,39 @@
     ]
   },
   {
-    "category": "Ways of Working",
+    "category": "Technical & Design Skills",
     "items": [
-      "Stakeholder Communication",
-      "Systems Thinking",
-      "Team Collaboration",
-      "Time Management"
+      "Figma",
+      "Artificial intelligence",
+      "Prompt Engineering",
+      "ChatGPT",
+      "Claude",
+      "Data Annotation",
+      "Research and Analytics"
     ]
   },
   {
-    "category": "Problem Solving",
+    "category": "Professional & Interpersonal Skills",
     "items": [
-      "Analytical Problem Solving"
+      "Team Management",
+      "Collaboration",
+      "Analytical Thinking",
+      "Time Management",
+      "Effective Communication",
+      "Presentation skills",
+      "Management",
+      "Interpersonal skills",
+      "English Proficiency (Spoken)",
+      "English Proficiency (Written)"
+    ]
+  },
+  {
+    "category": "Marketing & Business Growth",
+    "items": [
+      "Social Media Marketing",
+      "Lead Generation",
+      "Community Management",
+      "Networking"
     ]
   }
 ]
