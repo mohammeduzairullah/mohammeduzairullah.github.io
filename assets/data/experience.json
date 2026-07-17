@@ -7,8 +7,32 @@
     "description": "Developed to gain hands-on experience with frontend development and website deployment, providing technical insight that complements my transition toward IT Project Management.",
     "tags": "HTML • CSS • JavaScript • Cloudflare • Domain Management • Web Hosting • Google Sheets • Google Word • MS-Excel",
     "links": [
-      { "label": "View Repo", "url": "https://github.com/mohammeduzairullah/Pumpkin-Patch-international-Pre-School-Website" },
-      { "label": "View Live Site", "url": "https://www.pumpkinpatchintpreschool.com" }
+      {
+        "label": "View Repo",
+        "url": "https://github.com/mohammeduzairullah/Pumpkin-Patch-international-Pre-School-Website"
+      },
+      {
+        "label": "View Live Site",
+        "url": "https://www.pumpkinpatchintpreschool.com"
+      }
+    ]
+  },
+  {
+    "id": "exp-1784272324996",
+    "type": "project",
+    "title": "ICD Internal Operations Control Center",
+    "subtitle": "Full Stack Development, Project Manager",
+    "description": "Developed a full-stack Container Tracker as a solo learning project to gain hands-on experience with modern web application architecture. Built using Supabase for backend services and database management, and deployed on Vercel. The project strengthened my understanding of frontend-backend integration, deployment workflows, authentication, and data management.\n\nRole: Admin\nEmail: admin@gmail.com\n Password: Admin1234",
+    "tags": "JavaScript • Next.js 16 (App Router, Turbopack) • React 19 • Tailwind CSS 4 • Supabase • Resend • Vercel",
+    "links": [
+      {
+        "label": "View Repo",
+        "url": "https://github.com/mohammeduzairullah/ICD-Internal-Operations-Control-Center"
+      },
+      {
+        "label": "View Live Site",
+        "url": "https://icd-internal-operations-control-cen.vercel.app/"
+      }
     ]
   }
 ]
