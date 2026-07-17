@@ -5,12 +5,12 @@
     "color": "indigo"
   },
   {
-    "value": "1",
+    "value": "2",
     "label": "Projects",
     "color": "pink"
   },
   {
-    "value": "0.1 years",
+    "value": "0.2 years",
     "label": "Experience",
     "color": "amber"
   }
