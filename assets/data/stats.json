@@ -1,6 +1,6 @@
 [
   {
-    "value": "12+",
+    "value": "12",
     "label": "Certificates Earned",
     "color": "indigo"
   },
@@ -10,7 +10,7 @@
     "color": "pink"
   },
   {
-    "value": "0.1 years",
+    "value": "0.2 years",
     "label": "Experience",
     "color": "amber"
   }
